@@ -14,7 +14,6 @@ module EcdsRailsAuthEngine
         a = request.headers['Authorization']
         begin
           token = a.split(' ').last
-          puts token
           login = Login.where(oauth2_token: token)
           login.present? ? login.first.user : User.new
         rescue NoMethodError
