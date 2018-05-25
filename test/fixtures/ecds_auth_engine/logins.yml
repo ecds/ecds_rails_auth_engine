@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  identification: MyString
+  provider: MyString
+  confirm_token: MyString
+  password_digest: MyString
+
+two:
+  identification: MyString
+  provider: MyString
+  confirm_token: MyString
+  password_digest: MyString
