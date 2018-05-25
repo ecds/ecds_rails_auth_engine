@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class EcdsAuthEngine::Test < ActiveSupport::TestCase
+class EcdsRailsAuthEngine::Test < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, EcdsAuthEngine
+    assert_kind_of Module, EcdsRailsAuthEngine
   end
 end

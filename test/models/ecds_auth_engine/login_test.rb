@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   class LoginTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true

@@ -1,4 +1,4 @@
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   #
   # Include this in the consumming application's user model
   # to create relationship with the login model.

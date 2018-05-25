@@ -3,7 +3,7 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "ecds_auth_engine"
+require "ecds_rails_auth_engine"
 
 module Dummy
   class Application < Rails::Application

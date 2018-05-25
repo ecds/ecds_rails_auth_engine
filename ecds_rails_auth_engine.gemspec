@@ -5,8 +5,8 @@ require 'ecds_rails_auth_engine/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = 'ecds_auth_engine'
-  s.version     = EcdsAuthEngine::VERSION
+  s.name        = 'ecds_rails_auth_engine'
+  s.version     = EcdsRailsAuthEngine::VERSION
   s.authors     = ['Jay Varner']
   s.email       = ['jayvarner@gmail.com']
   s.homepage    = 'https://github.com/ecds'

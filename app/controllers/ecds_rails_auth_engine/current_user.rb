@@ -1,4 +1,4 @@
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   #
   # Access to user making request
   #

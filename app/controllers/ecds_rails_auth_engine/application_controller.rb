@@ -1,4 +1,4 @@
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   class ApplicationController < ActionController::API
     # protect_from_forgery with: :exception
   end

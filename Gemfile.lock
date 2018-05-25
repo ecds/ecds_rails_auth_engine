@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ecds_auth_engine (0.1.0)
+    ecds_rails_auth_engine (0.1.0)
       cancancan (~> 2.0)
       rails (~> 5.2.0)
       rails_api_auth
@@ -151,7 +151,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ecds_auth_engine!
+  ecds_rails_auth_engine!
   rails_api_auth
   rspec-rails (~> 3.7)
   sqlite3

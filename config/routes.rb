@@ -1,4 +1,4 @@
-EcdsAuthEngine::Engine.routes.draw do
+EcdsRailsAuthEngine::Engine.routes.draw do
   resources :users
 
 end

@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount EcdsAuthEngine::Engine => "/ecds_auth_engine"
+  mount EcdsRailsAuthEngine::Engine => "/ecds_rails_auth_engine"
 end

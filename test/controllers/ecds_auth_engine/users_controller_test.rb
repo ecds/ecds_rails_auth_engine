@@ -1,11 +1,11 @@
 require 'test_helper'
 
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   class UsersControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
     setup do
-      @user = ecds_auth_engine_users(:one)
+      @user = ecds_rails_auth_engine_users(:one)
     end
 
     test "should get index" do

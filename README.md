@@ -1,4 +1,4 @@
-# EcdsAuthEngine
+# EcdsRailsAuthEngine
 Short description and motivation.
 
 ## Usage
@@ -8,7 +8,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ecds_auth_engine'
+gem 'ecds_rails_auth_engine'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install ecds_auth_engine
+$ gem install ecds_rails_auth_engine
 ```
 
 ## Contributing

@@ -1,8 +1,8 @@
 require 'rails_api_auth'
 
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   class Engine < ::Rails::Engine
-    isolate_namespace EcdsAuthEngine
+    isolate_namespace EcdsRailsAuthEngine
     config.generators.api_only = true
     # config.autoload_paths << File.expand_path("models", __dir__)
     initializer :append_migrations do |app|

@@ -1,6 +1,6 @@
-require_dependency 'ecds_auth_engine/application_controller'
+require_dependency 'ecds_rails_auth_engine/application_controller'
 
-module EcdsAuthEngine
+module EcdsRailsAuthEngine
   class UsersController < ApplicationController
     before_action :set_user, only: [:show, :update, :destroy]
 
