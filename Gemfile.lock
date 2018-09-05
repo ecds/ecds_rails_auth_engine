@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ecds_rails_auth_engine (0.1.0)
+    ecds_rails_auth_engine (0.1.3)
       cancancan (~> 2.0)
       rails (~> 5.2.0)
       rails_api_auth
@@ -51,7 +51,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     builder (3.2.3)
     cancancan (2.2.0)
     concurrent-ruby (1.0.5)
@@ -79,7 +79,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_xml (0.6.0)
-    nio4r (2.3.0)
+    nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     rack (2.0.4)
@@ -152,7 +152,6 @@ PLATFORMS
 
 DEPENDENCIES
   ecds_rails_auth_engine!
-  rails_api_auth
   rspec-rails (~> 3.7)
   sqlite3
 

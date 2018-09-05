@@ -9,6 +9,14 @@ module EcdsRailsAuthEngine
       # attr_accessor :identification
       # attr_accessor :password
       has_one :login
+      after_create :_create_login
+
+      private
+
+      def _create_login
+        return if login
+        self.login = Login.create!
+      end
     end
   end
 end

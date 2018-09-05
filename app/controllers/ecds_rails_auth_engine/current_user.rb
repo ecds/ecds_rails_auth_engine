@@ -19,12 +19,6 @@ module EcdsRailsAuthEngine
         rescue NoMethodError
           User.new
         end
-        # login = Login.where
-        # if a == 'Bearer undefined'
-        #   User.new
-        # else
-        #   a ? Login.where(oauth2_token: a.split(' ').last).first.user : false
-        # end
       end
     end
   end
