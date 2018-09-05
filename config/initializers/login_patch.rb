@@ -1,7 +1,7 @@
 #
 # <Description>
 #
-module LoginPatch
+module LoginPatch < Login
   before_create :add_confirm_token
   before_validation :create_user
 
