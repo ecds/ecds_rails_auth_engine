@@ -1,7 +1,4 @@
-#
-# <Description>
-#
-module LoginPatch < Login
+Login.module_eval do
   before_create :add_confirm_token
   before_validation :create_user
 
@@ -19,5 +16,3 @@ module LoginPatch < Login
     self.user = User.create!
   end
 end
-
-Login.include LoginPatch
