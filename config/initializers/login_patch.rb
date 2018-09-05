@@ -1,6 +1,7 @@
 Login.module_eval do
   before_create :add_confirm_token
   before_validation :create_user
+  belongs_to :user
 
   def confirmed
     provider.present? || \
