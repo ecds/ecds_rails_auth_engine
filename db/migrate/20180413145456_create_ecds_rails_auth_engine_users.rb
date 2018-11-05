@@ -9,6 +9,6 @@ class CreateEcdsRailsAuthEngineUsers < ActiveRecord::Migration[5.1]
   end
 
   def change
-    add_column :login, :confirm_token, :string
+    add_column :logins, :confirm_token, :string
   end
 end
