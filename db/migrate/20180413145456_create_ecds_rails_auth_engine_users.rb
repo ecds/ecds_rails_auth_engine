@@ -7,4 +7,8 @@ class CreateEcdsRailsAuthEngineUsers < ActiveRecord::Migration[5.1]
     t.belongs_to :login, index: { unique: true }, foreign_key: true
     t.timestamps
   end
+
+  def change
+    add_column :login, :confirm_token, :string
+  end
 end
