@@ -14,10 +14,12 @@ module EcdsRailsAuthEngine
         a = request.headers['Authorization']
         begin
           token = a.split(' ').last
-          login = Login.where(oauth2_token: token)
-          login.present? ? login.first.user : User.new
+          token_contents = TokenService.verify(token)
+          p token_contents
+          login = Login.find_by(token: token)
+          login.user
         rescue NoMethodError
-          User.new
+          nil
         end
       end
     end
