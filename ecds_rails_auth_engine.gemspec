@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   s.add_dependency 'rails'
-  s.add_dependency 'rails_api_auth'
+  s.add_dependency 'rails_api_auth', '~> 0.1.0'
   s.add_dependency 'cancancan', '~> 2.0'
   s.add_development_dependency 'sqlite3'
 end
