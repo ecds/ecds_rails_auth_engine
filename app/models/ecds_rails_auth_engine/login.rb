@@ -22,7 +22,7 @@ module EcdsRailsAuthEngine
   # Login model
   #
   class Login < ApplicationRecord
-    before_validation :ensure_user
+    # before_validation :ensure_user
 
     if EcdsRailsAuthEngine.user_model_relation
       belongs_to EcdsRailsAuthEngine.user_model_relation, foreign_key: :user_id
@@ -31,9 +31,10 @@ module EcdsRailsAuthEngine
     private
 
     def ensure_user
-      return true if user.present?
-      self.user = User.create!
+      return true if user_id.present?
+      user = User.find_or_create_by(email: self.who)
+      self.user_id = user.id
     end
-  
+
   end
 end

@@ -4,6 +4,8 @@ module EcdsRailsAuthEngine
   #
   module CurrentUser
     extend ActiveSupport::Concern
+    include ActionController::Cookies
+
     included do
       #
       # Return the User object for the user making the request
@@ -11,16 +13,24 @@ module EcdsRailsAuthEngine
       # @return [User] <description>
       #
       def current_user
-        a = request.headers['Authorization']
-        begin
-          token = a.split(' ').last
-          token_contents = TokenService.verify(token)
-          p token_contents
-          login = Login.find_by(token: token)
-          login.user
-        rescue NoMethodError
-          nil
-        end
+        # a = request.headers['Authorization']
+        token = cookies.signed[:auth]
+        return nil if token.nil?
+        # begin
+        #   token = a.split(' ').last
+
+        #   return nil if token == 'undefined'
+
+          login = EcdsRailsAuthEngine::Login.find_by(token: token)
+          return nil if login.nil?
+          # return { cookie: token, signed: cookies.signed[:auth]}
+
+          # return nil unless TokenService.verify(login.token)
+
+          User.find(login.user_id)
+        # rescue NoMethodError
+        #   nil
+        # end
       end
     end
   end

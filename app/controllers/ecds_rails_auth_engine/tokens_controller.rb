@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This is required 
+# This is required
 # require_dependency 'ecds_rails_auth_engine/application_controller'
 
 #
@@ -11,7 +11,9 @@ module EcdsRailsAuthEngine
   # <Description>
   #
   class TokensController < ActionController::API
-    before_action :set_token, only: %i[show update destroy]
+  include ActionController::Cookies
+
+    before_action :set_token, only: %i[show destroy]
 
     #
     # <Description>
@@ -20,12 +22,15 @@ module EcdsRailsAuthEngine
     #
     def show
       if @login
-        @login.access_token = TokenService.create(@login)
+        Rails.logger.debug "LOGIN!!! #{@login.token}"
+        @login.token = TokenService.create(@login)
+        Rails.logger.debug "NEW TOKEN!!! #{@login.token}"
         @login.save
         response.headers['Cache-Control'] = 'no-store'
         response.headers['Pragma'] = 'no-cache'
-        @login.expires_in = 3600
-        render json: @login, include: ['user']
+        # @login.expires_in = 3600
+        # render json: @login, include: ['user']
+        render json: { token: SecureRandom.hex(10) }, status: :ok
       else
         render json: {
           status: 401,
@@ -35,25 +40,30 @@ module EcdsRailsAuthEngine
     end
 
     def verify
-      # p params
-      token_contents = TokenService.verify_remote(params[:access_token])
+      token_contents = TokenService.verify_remote(request.headers['Authorization'].split(' ').last)
+      Rails.logger.debug "VERIFIED RESPONSE: #{token_contents}"
       login = Login.find_or_create_by(who: token_contents[:who])
+
       # TODO: How does RailsApiAuth do this?
-      if login.user.nil?
-        login.user = User.create
-      end
+      login.user_id = User.find_or_create_by(email: token_contents[:who]).id
+
       login.provider = token_contents[:provider]
       access_token = TokenService.create(login)
       login.token = access_token
+      Rails.logger.debug "CREATED TOKEN #{access_token}"
       login.save
-      render json: { access_token: access_token }
+      cookies.signed[:auth] = {
+        value: access_token,
+        httponly: true,
+        expires: 2.weeks.from_now,
+        same_site: :none,
+        secure: 'Secure'
+      }
+      render json: { access_token: SecureRandom.hex(10) }, status: :ok
     end
 
     def destroy
-      HTTParty.post(
-        "https://#{EcdsRailsAuthEngine.verification_host}/tokens/revoke"
-      )
-      @login.access_token = nil
+      @login.token = nil
       @login.save
       head 200
     end
@@ -62,7 +72,10 @@ module EcdsRailsAuthEngine
 
     # Use callbacks to share common setup or constraints between actions.
     def set_token
-      @login = Login.find_by(access_token: params[:auth_code])
+      cookies.each do |cookie|
+        puts cookie
+      end
+      @login = Login.find_by(token: cookies.signed[:auth])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -34,7 +34,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    
+    credentials = {
+      secret_key_base: '77aa77'
+    }
+    allow(Rails.application).to receive(:credentials).and_return(credentials)
   end
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
@@ -51,6 +54,8 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

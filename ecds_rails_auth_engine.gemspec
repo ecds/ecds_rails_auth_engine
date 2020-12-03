@@ -23,10 +23,10 @@ Gem::Specification.new do |s|
     'README.md'
   ]
 
-  s.add_dependency 'cancancan', '~> 2.0'
-  s.add_dependency 'httparty', '~> 0.17.0'
-  s.add_dependency 'jwt', '~> 2.1.0'
-  s.add_dependency 'rails', '~> 5.2.0'
+  s.add_dependency 'cancancan'
+  s.add_dependency 'httparty'
+  s.add_dependency 'jwt'
+  s.add_dependency 'rails'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_bot_rails'
