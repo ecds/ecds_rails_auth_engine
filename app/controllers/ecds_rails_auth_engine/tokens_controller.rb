@@ -45,7 +45,11 @@ module EcdsRailsAuthEngine
       login = Login.find_or_create_by(who: token_contents[:who])
 
       # TODO: How does RailsApiAuth do this?
-      login.user_id = User.find_or_create_by(email: token_contents[:who]).id
+      user = User.find_or_create_by(email: token_contents[:who])
+      10.times { Rails.logger.debug "CONTENTS: #{token_contents}"}
+      user.display_name = token_contents[:name]
+      user.save
+      login.user_id = user.id
 
       login.provider = token_contents[:provider]
       access_token = TokenService.create(login)
@@ -59,10 +63,24 @@ module EcdsRailsAuthEngine
         same_site: :none,
         secure: 'Secure'
       }
-      render json: { access_token: SecureRandom.hex(10) }, status: :ok
+      Rails.logger.debug "CREATED FROM: #{access_token}"
+      Rails.logger.debug "AUTH COOKIE: #{cookies.signed[:auth]}"
+      Rails.logger.debug "TOKEN IN DB: #{login.token}"
+      render json: { access_token: cookies.signed[:auth] }, status: :ok
     end
 
     def destroy
+      # # Rails.logger.debug "AUTH COOKIE BEFORE: #{cookies.signed[:auth]}"
+      # # Rails.logger.debug "AUTH COOKIE BEFORE: #{cookies.signed[:auth]}"
+      cookies.signed[:auth] = {
+        value: @login.token,
+        httponly: true,
+        expires: 2.seconds.from_now,
+        same_site: :none,
+        secure: 'Secure'
+      }
+      # cookies.delete :auth
+      # Rails.logger.debug "AUTH COOKIE AFTER: #{cookies.signed[:auth]}"
       @login.token = nil
       @login.save
       head 200
@@ -72,9 +90,6 @@ module EcdsRailsAuthEngine
 
     # Use callbacks to share common setup or constraints between actions.
     def set_token
-      cookies.each do |cookie|
-        puts cookie
-      end
       @login = Login.find_by(token: cookies.signed[:auth])
     end
 
