@@ -21,7 +21,7 @@ module EcdsRailsAuthEngine
           cookies.signed[:auth]
         end
 
-        return nil if token.nil?
+        return User.new if token.nil?
         # begin
         #   token = a.split(' ').last
 
