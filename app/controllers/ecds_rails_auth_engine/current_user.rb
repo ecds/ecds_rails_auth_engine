@@ -13,11 +13,7 @@ module EcdsRailsAuthEngine
       # @return [User] <description>
       #
       def current_user
-        token = if Rails.env == 'test'
-          cookies[:auth]
-        else
-          cookies.signed[:auth]
-        end
+        token = cookies.signed[:auth]
 
         return User.new if token.nil?
 
