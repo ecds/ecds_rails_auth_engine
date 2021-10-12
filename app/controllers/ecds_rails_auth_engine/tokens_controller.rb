@@ -41,20 +41,17 @@ module EcdsRailsAuthEngine
 
     def verify
       token_contents = TokenService.verify_remote(request.headers['Authorization'].split(' ').last)
-      Rails.logger.debug "VERIFIED RESPONSE: #{token_contents}"
       login = Login.find_or_create_by(who: token_contents[:who])
 
       # TODO: How does RailsApiAuth do this?
       user = User.find_or_create_by(email: token_contents[:who])
-      10.times { Rails.logger.debug "CONTENTS: #{token_contents}"}
       user.display_name = token_contents[:name]
       user.save
       login.user_id = user.id
 
       login.provider = token_contents[:provider]
       access_token = TokenService.create(login)
-      login.token = access_token
-      Rails.logger.debug "CREATED TOKEN #{access_token}"
+      Token.create!(token: access_token, login: login)
       login.save
       cookies.signed[:auth] = {
         value: access_token,
@@ -63,26 +60,18 @@ module EcdsRailsAuthEngine
         same_site: :none,
         secure: 'Secure'
       }
-      Rails.logger.debug "CREATED FROM: #{access_token}"
-      Rails.logger.debug "AUTH COOKIE: #{cookies.signed[:auth]}"
-      Rails.logger.debug "TOKEN IN DB: #{login.token}"
       render json: { access_token: cookies.signed[:auth] }, status: :ok
     end
 
     def destroy
-      # # Rails.logger.debug "AUTH COOKIE BEFORE: #{cookies.signed[:auth]}"
-      # # Rails.logger.debug "AUTH COOKIE BEFORE: #{cookies.signed[:auth]}"
       cookies.signed[:auth] = {
-        value: @login.token,
+        value: @token,
         httponly: true,
         expires: 2.seconds.from_now,
         same_site: :none,
         secure: 'Secure'
       }
-      # cookies.delete :auth
-      # Rails.logger.debug "AUTH COOKIE AFTER: #{cookies.signed[:auth]}"
-      @login.token = nil
-      @login.save
+      @token.delete
       head 200
     end
 
@@ -90,7 +79,8 @@ module EcdsRailsAuthEngine
 
     # Use callbacks to share common setup or constraints between actions.
     def set_token
-      @login = Login.find_by(token: cookies.signed[:auth])
+      @token = Token.find_by(token: cookies.signed[:auth])
+      @login = @token.login
     end
 
     # Only allow a trusted parameter "white list" through.

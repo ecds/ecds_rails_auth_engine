@@ -21,7 +21,7 @@ module EcdsRailsAuthEngine
 
         return User.new if token.nil?
 
-        login = EcdsRailsAuthEngine::Login.find_by(token: token)
+        login = EcdsRailsAuthEngine::Token.find_by(token: token).login
 
         return User.new if login.nil?
 

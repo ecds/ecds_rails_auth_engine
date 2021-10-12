@@ -28,6 +28,8 @@ module EcdsRailsAuthEngine
       belongs_to EcdsRailsAuthEngine.user_model_relation, foreign_key: :user_id
     end
 
+    has_many :tokens, class_name: 'EcdsRailsAuthEngine::Token', foreign_key: :login_id
+
     private
 
     def ensure_user
