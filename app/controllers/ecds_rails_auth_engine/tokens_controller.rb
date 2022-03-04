@@ -22,7 +22,6 @@ module EcdsRailsAuthEngine
     #
     def show
       if @login
-        Rails.logger.debug "LOGIN!!! #{@login.token}"
         @login.token = TokenService.create(@login)
         Rails.logger.debug "NEW TOKEN!!! #{@login.token}"
         @login.save
