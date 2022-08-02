@@ -18,7 +18,7 @@ module TokenService
     def create(login)
       exp = Time.now.to_i + 4 * 3600
       exp_payload = { data: { who: login.who }, exp: exp }
-JWT.encode exp_payload,
+      JWT.encode exp_payload,
             'e4e554292baafabfa3adb2276d05fae98411a7d59335d87f5a9c6df806a2ba4bbbbd884fa1a05f159ac82d0a0f9371ba22a6a7b30df74333d717ac3ce69ea35e',
             'HS256'
     end

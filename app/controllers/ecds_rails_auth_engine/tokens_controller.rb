@@ -11,7 +11,7 @@ module EcdsRailsAuthEngine
   # <Description>
   #
   class TokensController < ActionController::API
-  include ActionController::Cookies
+    include ActionController::Cookies
 
     before_action :set_token, only: %i[show destroy]
 
@@ -22,8 +22,10 @@ module EcdsRailsAuthEngine
     #
     def show
       if @login
-        @login.token = TokenService.create(@login)
-        Rails.logger.debug "NEW TOKEN!!! #{@login.token}"
+        EcdsRailsAuthEngine::Token.create(
+          token: TokenService.create(@login),
+          login: @login
+        )
         @login.save
         response.headers['Cache-Control'] = 'no-store'
         response.headers['Pragma'] = 'no-cache'
@@ -40,7 +42,7 @@ module EcdsRailsAuthEngine
 
     def verify
       token_contents = TokenService.verify_remote(request.headers['Authorization'].split(' ').last)
-      login = Login.find_or_create_by(who: token_contents[:who])
+      login = EcdsRailsAuthEngine::Login.find_or_create_by(who: token_contents[:who])
 
       # TODO: How does RailsApiAuth do this?
       user = User.find_or_create_by(email: token_contents[:who])
