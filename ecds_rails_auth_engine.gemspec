@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'cancancan'
   s.add_dependency 'httparty'
-  s.add_dependency 'jwt'
+  s.add_dependency 'jwt', '<= 2.2.2'
   s.add_dependency 'rails'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
