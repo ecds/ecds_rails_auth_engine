@@ -46,7 +46,7 @@ module EcdsRailsAuthEngine
 
       # TODO: How does RailsApiAuth do this?
       user = User.find_or_create_by(email: token_contents[:who])
-      user.display_name = token_contents[:name]
+      user.displayname = token_contents[:name]
       user.save
       login.user_id = user.id
 
@@ -78,15 +78,15 @@ module EcdsRailsAuthEngine
 
     private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_token
-      @token = Token.find_by(token: cookies.signed[:auth])
-      @login = @token.login
-    end
+      # Use callbacks to share common setup or constraints between actions.
+      def set_token
+        @token = Token.find_by(token: cookies.signed[:auth])
+        @login = @token.login
+      end
 
-    # Only allow a trusted parameter "white list" through.
-    def token_params
-      params.fetch(:access_token, {})
-    end
+      # Only allow a trusted parameter "white list" through.
+      def token_params
+        params.fetch(:access_token, {})
+      end
   end
 end
