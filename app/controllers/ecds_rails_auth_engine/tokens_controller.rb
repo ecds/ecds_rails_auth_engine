@@ -23,7 +23,7 @@ module EcdsRailsAuthEngine
     def show
       if @login
         EcdsRailsAuthEngine::Token.create(
-          token: TokenService.create(@login),
+          tokens: TokenService.create(@login),
           login: @login
         )
         @login.save
