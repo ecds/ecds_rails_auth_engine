@@ -46,7 +46,7 @@ module EcdsRailsAuthEngine
 
       # TODO: How does RailsApiAuth do this?
       user = User.find_or_create_by(email: token_contents[:who])
-      user.displayname = token_contents[:name]
+      user.display_name = token_contents[:name]
       user.save
       login.user_id = user.id
 
