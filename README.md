@@ -2,7 +2,6 @@
 
 Rails engine for using token/signed cookie and FauxOAuth.
 
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -55,11 +54,6 @@ end
 ```
 
 This will add a `current_user` object in your controllers that is the `User` model object of the user making the request.
-
-
-## Contributing
-
-Contribution directions go here.
 
 ## License
 

@@ -17,11 +17,11 @@ module EcdsRailsAuthEngine
 
         return User.new if token.nil?
 
-        login = EcdsRailsAuthEngine::Token.find_by(token: token).login
+        session = EcdsRailsAuthEngine::Token.find_by(token: token)
 
-        return User.new if login.nil?
+        return User.new if session.nil?
 
-        User.find(login.user_id)
+        User.find(session.login.user_id)
       end
     end
   end

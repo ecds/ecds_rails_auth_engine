@@ -52,7 +52,7 @@ module EcdsRailsAuthEngine
 
       login.provider = token_contents[:provider]
       access_token = TokenService.create(login)
-      Token.create!(token: access_token, login: login)
+      Token.find_or_create_by!(token: access_token, login: login)
       login.save
       cookies.signed[:auth] = {
         value: access_token,
